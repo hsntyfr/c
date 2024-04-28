@@ -1,17 +1,18 @@
 #ifndef BOCEK_H
 #define BOCEK_H
-
 #include "Canli.h"
+
 
 struct BOCEK {
     Canli super;
-    void (*bocekYokEt)(struct BOCEK*);
+    char simge;
+    void (*yokEt)(struct BOCEK*);
+
 };
 typedef struct BOCEK* Bocek;
 
 Bocek bocekOlustur(int, int, int);
 void bocekYokEt(Bocek);
-//char* gorunum(Bocek this);
 
-
+char getSimgeBocek(Bocek);
 #endif //BOCEK_H
