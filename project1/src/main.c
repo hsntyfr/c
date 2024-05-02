@@ -82,5 +82,20 @@ int main(void){
     free(str);*/
 
     habitatYazdir(habitat);
+    //kazananYazdir(habitat);
+    savasciGonder(habitat);
+    //printf("\n");
+    //kazananYazdir(habitat);
+    //printf("\n");
+    habitatYazdir(habitat);
+
+    //habitatYazdir(habitat);
+
+
+
+
+
+
+
     return 0;
 }

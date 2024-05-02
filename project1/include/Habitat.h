@@ -15,8 +15,10 @@ struct HABİTAT {
     //struct canliDizi ***canlilar;
     int satir;
     int sutun;
-    Canli **canliDizisi;
+    Canli *kazanan;
+    Canli ***canliDizisi;
     void (*habitatYokEt) (struct HABİTAT*);
+    Canli (*kazananBul) (Canli, Canli);
     //void (*habitatYazdir) (struct CANLI**);
 
 };
@@ -25,12 +27,19 @@ typedef struct HABİTAT *Habitat;
 void habitatBoyutBelirle(const char*, int*, int*);
 void habitatYokEt(Habitat);
 Habitat habitatOlustur(char*);
-Canli** diziOlustur(int, int);
+Canli*** diziOlustur(int, int);
 void habitatYazdir(Habitat);
-//Canli kazananBul(Canli, Canli);
 void habitatYokEt(Habitat);
 void habitatDoldur(Habitat, char*);
-
+//Canli kazananBul(Canli, Canli);
+void kazananYazdir(Habitat);
+void savasciGonder(Habitat this);
+char turBelirle(Canli* this);
+char kazananBul(char tur1, char tur2);
+void kaybedenOldur(Canli* this);
+int ikiBitki(Canli* canli1, Canli* canli2);
+int ikiBocek(Canli* canli1, Canli* canli2);
+int ikiSinek(Canli* canli1, Canli* canli2);
 #endif
 
 
