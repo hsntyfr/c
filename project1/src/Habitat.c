@@ -42,15 +42,8 @@ Habitat habitatOlustur(char* dosya) {
     habitatDoldur(this, dosya);
     return this;
 }
-/*Canli** diziOlustur(int satir, int sutun) {
-    Canli** canliDizi = (Canli**)malloc(satir * sizeof(Canli*));
-    for (int i = 0; i < satir; i++) {
-        canliDizi[i] = (Canli*)malloc(sutun * sizeof(Canli));
-    }
-    return canliDizi;
-}*/
 
-Canli*** diziOlustur(int satir, int sutun) {
+/*Canli*** diziOlustur(int satir, int sutun) {
     Canli*** canliDizi = (Canli***)malloc((satir + 1) * sizeof(Canli**));
     for (int i = 0; i < satir + 1; i++) {
         canliDizi[i] = (Canli**)malloc((sutun + 1) * sizeof(Canli*));
@@ -59,9 +52,26 @@ Canli*** diziOlustur(int satir, int sutun) {
         }
     }
     return canliDizi;
-}
+}*/
 
 /*Canli*** diziOlustur(int satir, int sutun) {
+    printf("\n%d", satir);
+    printf("\n%d\n", sutun);
+    int k = 0;
+    Canli*** canliDizi = (Canli***)malloc((sutun + 1) * sizeof(Canli**));
+    for (int i = 0; i < sutun + 1; i++) {
+        canliDizi[i] = (Canli**)malloc((satir + 1) * sizeof(Canli*));
+        for (int j = 0; j < satir + 1; j++) {
+            printf("%d", k++);
+            canliDizi[i][j] = (Canli*)malloc(sizeof(Canli));
+        }
+        k = 0;
+        printf("\n");
+    }
+    return canliDizi;
+}*/
+
+Canli*** diziOlustur(int satir, int sutun) {
     int a = 0;
     if (satir > sutun) a = satir;
     else a = sutun;
@@ -74,7 +84,7 @@ Canli*** diziOlustur(int satir, int sutun) {
         }
     }
     return canliDizi;
-}*/
+}
 
 void habitatDoldur(Habitat this, char* dosya) {
     FILE *file = fopen(dosya, "r");
@@ -173,6 +183,7 @@ void habitatYazdir(Habitat this) {
 }*/
 
 void kazananYazdir(Habitat this) {
+    habitatYazdir(this);
     Bitki bitki = (Bitki)this->kazanan;
     Bocek bocek = (Bocek)this->kazanan;
     Pire pire = (Pire)this->kazanan;
@@ -197,7 +208,7 @@ void kazananYazdir(Habitat this) {
         //printf("%p\n", sinek);
         printf("%d,%d", sinek->super->super->y, sinek->super->super->x);
     }
-    habitatYazdir(this);
+
 }
 
 /*void habitatYokEt(Habitat this) {
@@ -241,7 +252,22 @@ int ikiBitki(Canli* canli1, Canli* canli2) {
         return 1;
     }
     else {
-        return 0;
+        if (bitki1->super->y == bitki2->super->y) {
+            if (bitki1->super->x > bitki2->super->x) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        if (bitki1->super->x == bitki2->super->x) {
+            if (bitki1->super->y > bitki2->super->y) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
     }
 }
 
@@ -255,7 +281,22 @@ int ikiBocek(Canli* canli1, Canli* canli2) {
         return 1;
     }
     else {
-        return 0;
+        if (bocek1->super->y == bocek2->super->y) {
+            if (bocek1->super->x > bocek2->super->x) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        if (bocek1->super->x == bocek2->super->x) {
+            if (bocek1->super->y > bocek2->super->y) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
     }
 }
 
@@ -270,7 +311,23 @@ int ikiSinek(Canli* canli1, Canli* canli2) {
         return 1;
     }
     else {
-        return 0;
+        if (sinek1->super->super->y == sinek2->super->super->y) {
+            if (sinek1->super->super->x > sinek2->super->super->x) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        if (sinek1->super->super->x == sinek2->super->super->x) {
+            if (sinek1->super->super->y > sinek2->super->super->y) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+
     }
 }
 
@@ -284,7 +341,22 @@ int ikiPire(Canli* canli1, Canli* canli2) {
         return 1;
     }
     else {
-        return 0;
+        if (pire1->super->super->y == pire2->super->super->y) {
+            if (pire1->super->super->x > pire2->super->super->x) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        if (pire1->super->super->x == pire2->super->super->x) {
+            if (pire1->super->super->y > pire2->super->super->y) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
     }
 }
 
