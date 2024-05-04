@@ -5,10 +5,12 @@
 
 void habitatBoyutBelirle(const char* dosya, int* satirSon, int* sutunSon) {
     FILE *file = fopen(dosya, "r");
-    char veri[256];
+    char veri[512];
     int satir = 0;
     int sutun = 0;
+
     while (fgets(veri, sizeof(veri), file)) {
+        //printf("%s\n", veri);
         satir++;
         if (satir == 1) {
             char *ayrac = strtok(veri, " ");
@@ -23,6 +25,9 @@ void habitatBoyutBelirle(const char* dosya, int* satirSon, int* sutunSon) {
     //printf("%d\n", sutun);
     *satirSon = satir;
     *sutunSon = sutun;
+
+    printf("%d", satir);
+    printf("%d\n", sutun);
 }
 
 
@@ -46,9 +51,9 @@ Habitat habitatOlustur(char* dosya) {
 }*/
 
 Canli*** diziOlustur(int satir, int sutun) {
-    Canli*** canliDizi = (Canli***)malloc((sutun + 1) * sizeof(Canli**));
-    for (int i = 0; i < sutun + 1; i++) {
-        canliDizi[i] = (Canli**)malloc((satir + 1) * sizeof(Canli*));
+    Canli*** canliDizi = (Canli***)malloc((satir + 1) * sizeof(Canli**));
+    for (int i = 0; i < satir + 1; i++) {
+        canliDizi[i] = (Canli**)malloc((sutun + 1) * sizeof(Canli*));
         for (int j = 0; j < satir + 1; j++) {
             canliDizi[i][j] = (Canli*)malloc(sizeof(Canli));
         }
@@ -56,9 +61,24 @@ Canli*** diziOlustur(int satir, int sutun) {
     return canliDizi;
 }
 
+/*Canli*** diziOlustur(int satir, int sutun) {
+    int a = 0;
+    if (satir > sutun) a = satir;
+    else a = sutun;
+
+    Canli*** canliDizi = (Canli***)malloc((a+ 1) * sizeof(Canli**));
+    for (int i = 0; i < a + 1; i++) {
+        canliDizi[i] = (Canli**)malloc((a + 1) * sizeof(Canli*));
+        for (int j = 0; j < a + 1; j++) {
+            canliDizi[i][j] = (Canli*)malloc(sizeof(Canli));
+        }
+    }
+    return canliDizi;
+}*/
+
 void habitatDoldur(Habitat this, char* dosya) {
     FILE *file = fopen(dosya, "r");
-    char veri[256];
+    char veri[512];
     int x = 0;
     int y = 0;
 
@@ -73,29 +93,23 @@ void habitatDoldur(Habitat this, char* dosya) {
             if (sayi >= 1 && sayi <= 9) {
                 Bitki bitki = bitkiOlustur(x, y, sayi);
                 this->canliDizisi[y][x] = (Canli)bitki;
-                x++;
             } else if (sayi >= 10 && sayi <= 20) {
                 Bocek bocek = bocekOlustur(x, y, sayi);
                 this->canliDizisi[y][x] = (Canli)bocek;
-                x++;
             } else if (sayi >= 21 && sayi <= 50) {
                 Sinek sinek = sinekOlustur(x, y, sayi);
                 this->canliDizisi[y][x] = (Canli)sinek;
-                x++;
-            } else if (sayi >= 50 && sayi <= 99) {
+            } else if (sayi >= 51 && sayi <= 99) {
                 Pire pire = pireOlustur(x, y, sayi);
                 this->canliDizisi[y][x] = (Canli)pire;
-                x++;
             }
+            x++;
             ayrac = strtok(NULL, " ");
         }
     }
     fclose(file);
     this->kazanan = this->canliDizisi[0][0];
 }
-
-
-
 
 void habitatYazdir(Habitat this) {
     //system("clear");
@@ -165,20 +179,25 @@ void kazananYazdir(Habitat this) {
     Sinek sinek = (Sinek)this->kazanan;
     if (bitki->simge == 'B' && bitki->super->canliMi == true) {
         printf("%c\n", 'B');
-        printf("%p\n", bitki);
+        //printf("%p\n", bitki);
+        printf("%d,%d",  bitki->super->y, bitki->super->x);
     }
     if (bocek->simge == 'C' && bocek->super->canliMi == true) {
         printf("%c\n", 'C');
-        printf("%p\n", bocek);
+        //printf("%p\n", bocek);
+        printf("%d,%d", bocek->super->y, bocek->super->x);
     }
     if (pire->simge == 'P' && pire->super->super->canliMi == true) {
         printf("%c\n", 'P');
-        printf("%p\n", pire);
+        //printf("%p\n", pire);
+        printf("%d,%d", pire->super->super->y, pire->super->super->x);
     }
     if (sinek->simge == 'S' && sinek->super->super->canliMi == true) {
         printf("%c\n", 'S');
-        printf("%p\n", sinek);
+        //printf("%p\n", sinek);
+        printf("%d,%d", sinek->super->super->y, sinek->super->super->x);
     }
+    habitatYazdir(this);
 }
 
 /*void habitatYokEt(Habitat this) {
@@ -210,7 +229,6 @@ char turBelirle(Canli* this) {
         return 'S';
     }
     return false;
-
 }
 
 int ikiBitki(Canli* canli1, Canli* canli2) {
@@ -256,6 +274,20 @@ int ikiSinek(Canli* canli1, Canli* canli2) {
     }
 }
 
+int ikiPire(Canli* canli1, Canli* canli2) {
+    Pire pire1 = (Pire)canli1;
+    Pire pire2 = (Pire)canli2;
+    if (pire1->super->super->deger > pire2->super->super->deger) {
+        return 0;
+    }
+    else if (pire1->super->super->deger < pire2->super->super->deger) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
 void savasciGonder(Habitat this) {
     Bitki bitki;
     Bocek bocek;
@@ -263,14 +295,12 @@ void savasciGonder(Habitat this) {
     Sinek sinek;
     printf("\n");
 
-
-
     for (int i = 0; i < this->satir; i++) {
         for (int j = 0; j < this->sutun; j++) {
-            printf("%p\n", this->kazanan);
-            printf("%p\n", this->canliDizisi[0][0]);
+            //printf("%p\n", this->kazanan);
+            //printf("%p\n", this->canliDizisi[0][0]);
             Canli *canli1 = this->kazanan;
-            kazananYazdir(this);
+            //kazananYazdir(this);
             if (this->kazanan == this->canliDizisi[i][j]) {
                 continue;
             }
@@ -278,8 +308,8 @@ void savasciGonder(Habitat this) {
             Canli* temp;
             char tur1 = turBelirle(canli1);
             char tur2 = turBelirle(canli2);
-            printf("%c", tur1);
-            printf("%c\n", tur2);
+            //printf("%c", tur1);
+            //printf("%c\n", tur2);
             if (tur1 == 'C') {
                 if (tur2 == 'B') {
                     kaybedenOldur(this->canliDizisi[i][j]);
@@ -346,11 +376,34 @@ void savasciGonder(Habitat this) {
                         kaybedenOldur(canli1);
                     }
                 }
+            } else if (tur1 == 'P') {
+                if (tur2 == 'P') {
+                    if (!ikiPire(canli1, canli2)) {
+                        this->kazanan = canli1;
+                        kaybedenOldur(canli2);
+                    }
+                    else {
+                        this->kazanan = canli2;
+                        kaybedenOldur(canli1);
+                    }
+                }
+                else if (tur2 == 'B') {
+                    temp = this->kazanan;
+                    this->kazanan = canli2;
+                    kaybedenOldur(temp);
+                }
+                else if (tur2 == 'C') {
+                    temp = this->kazanan;
+                    this->kazanan = canli2;
+                    kaybedenOldur(temp);
+                }
+                else if (tur2 == 'S') {
+                    temp = this->kazanan;
+                    this->kazanan = canli2;
+                    kaybedenOldur(temp);
+                }
             }
-
-
-
-            habitatYazdir(this);
+            //habitatYazdir(this);
             //printf("%d", i);
             //printf("%d", j);
             /*bitki = (Bitki)this->kazanan;
@@ -369,8 +422,6 @@ void savasciGonder(Habitat this) {
             if (sinek->simge == 'S' && sinek->super->super->canliMi == true) {
                 printf("%c, %d, %d\n", sinek->simge, sinek->super->super->x, sinek->super->super->y);
             }*/
-
-
         }
         printf("\n");
     }
@@ -449,5 +500,6 @@ char kazananBul(char tur1, char tur2) {
 */
 
 void habitatYokEt(Habitat this) {
+
 
 }

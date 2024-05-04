@@ -82,12 +82,14 @@ int main(void){
     free(str);*/
 
     habitatYazdir(habitat);
+    //getchar();
     //kazananYazdir(habitat);
     savasciGonder(habitat);
     //printf("\n");
     //kazananYazdir(habitat);
     //printf("\n");
-    habitatYazdir(habitat);
+    //habitatYazdir(habitat);
+    kazananYazdir(habitat);
 
     //habitatYazdir(habitat);
 

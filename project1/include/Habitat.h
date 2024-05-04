@@ -40,6 +40,8 @@ void kaybedenOldur(Canli* this);
 int ikiBitki(Canli* canli1, Canli* canli2);
 int ikiBocek(Canli* canli1, Canli* canli2);
 int ikiSinek(Canli* canli1, Canli* canli2);
+int ikiPire(Canli* canli1, Canli* canli2);
+
 #endif
 
 
