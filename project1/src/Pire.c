@@ -6,7 +6,7 @@ Pire pireOlustur(int x, int y, int deger) {
     Pire this;
     this = (Pire)malloc(sizeof(struct PIRE));
     this->super = bocekOlustur(x, y, deger);
-    this->simge = 'P';
+    this->simge = "P";
     this->super->super->getSimge = &getSimgePire;
     this->yokEt = &pireYokEt;
     return this;
@@ -18,6 +18,12 @@ void pireYokEt(Pire this) {
     this->super->yokEt(this->super);
     free(this);
 }
-char getSimgePire(Pire this) {
-    return this->simge;
+char* getSimgePire(Pire this) {
+    if (this->super->super->canliMi == false)
+    {
+        return "X";
+    }
+    else if (this->super->super->canliMi == true) {
+        return "P";
+    }
 }

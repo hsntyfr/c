@@ -5,14 +5,14 @@
 
 struct BITKI {
     Canli super;
-    char simge;
+    char* simge;
     void (*yokEt)(struct BITKI*);
 };
 typedef struct BITKI* Bitki;
 
 Bitki bitkiOlustur(int, int, int);
 void bitkiYokEt(Bitki);
-char getSimgeBitki(Bitki);
+char* getSimgeBitki(Bitki);
 
 
 

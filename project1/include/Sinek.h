@@ -5,12 +5,12 @@
 
 struct SINEK {
     Bocek super;
-    char simge;
+    char* simge;
     void (*yokEt)(struct SINEK*);
 };
 typedef struct SINEK* Sinek;
 
 Sinek sinekOlustur(int, int, int);
 void sinekYokEt(Sinek);
-char getSimgeSinek(Sinek);
+char* getSimgeSinek(Sinek);
 #endif //SINEK_H

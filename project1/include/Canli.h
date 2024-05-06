@@ -13,7 +13,7 @@ struct CANLI {
 
     void (*yokEt)(struct CANLI*);
     char* (*gorunum)(struct CANLI*, void*);
-    char (*getSimge)();
+    char* (*getSimge)();
 
 };
 typedef struct CANLI* Canli;

@@ -9,7 +9,7 @@
 #include "Pire.h"
 #include "Sinek.h"
 
-struct HABİTAT {
+struct HABITAT {
     char tur;
 
     //struct canliDizi ***canlilar;
@@ -17,12 +17,13 @@ struct HABİTAT {
     int sutun;
     Canli *kazanan;
     Canli ***canliDizisi;
-    void (*habitatYokEt) (struct HABİTAT*);
+    void (*habitatYokEt) (struct HABITAT*);
     Canli (*kazananBul) (Canli, Canli);
-    //void (*habitatYazdir) (struct CANLI**);
-
+    void (*kazananYazdir) (struct HABITAT*);
+    void (*habitatYazdir) (struct HABITAT*);
+    void (*savasBaslat) (struct HABITAT*);
 };
-typedef struct HABİTAT *Habitat;
+typedef struct HABITAT *Habitat;
 
 void habitatBoyutBelirle(const char*, int*, int*);
 void habitatYokEt(Habitat);
