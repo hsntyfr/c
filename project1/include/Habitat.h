@@ -34,7 +34,7 @@ void habitatYokEt(Habitat);
 void habitatDoldur(Habitat, char*);
 //Canli kazananBul(Canli, Canli);
 void kazananYazdir(Habitat);
-void savasciGonder(Habitat this);
+void savasBaslat(Habitat this);
 char turBelirle(Canli* this);
 char kazananBul(char tur1, char tur2);
 void kaybedenOldur(Canli* this);

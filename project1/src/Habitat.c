@@ -35,7 +35,7 @@ Habitat habitatOlustur(char* dosya) {
     this->habitatYazdir = &habitatYazdir;
     this->kazananYazdir = &kazananYazdir;
     this->habitatYokEt = &habitatYokEt;
-    this->savasBaslat = &savasciGonder;
+    this->savasBaslat = &savasBaslat;
     return this;
 }
 
@@ -304,7 +304,7 @@ int ikiPire(Canli* canli1, Canli* canli2) {
     }
 }
 
-void savasciGonder(Habitat this) {
+void savasBaslat(Habitat this) {
     Bitki bitki;
     Bocek bocek;
     Pire pire;
@@ -320,70 +320,49 @@ void savasciGonder(Habitat this) {
             char tur1 = turBelirle(canli1);
             char tur2 = turBelirle(canli2);
             if (tur1 == 'C') {
-                if (tur2 == 'B') {
-                    kaybedenOldur(this->canliDizisi[i][j]);
-                }
-                else if (tur2 == 'P') {
-                    kaybedenOldur(this->canliDizisi[i][j]);
-                }
-                else if (tur2 == 'S') {
-                    temp = this->kazanan;
+                if (tur2 == 'S') {
                     this->kazanan = canli2;
-                    kaybedenOldur(temp);
-                }
-                else if (tur2 == 'C') {
+                    kaybedenOldur(canli1);
+                } else if (tur2 == 'C') {
                     if (!ikiBocek(canli1, canli2)) {
                         this->kazanan = canli1;
                         kaybedenOldur(canli2);
-                    }
-                    else {
+                    } else {
                         this->kazanan = canli2;
                         kaybedenOldur(canli1);
                     }
+                } else {
+                    kaybedenOldur(canli2);
                 }
             } else if (tur1 == 'B') {
                 if (tur2 == 'C') {
-                    temp = this->kazanan;
                     this->kazanan = canli2;
-                    kaybedenOldur(temp);
-                }
-                else if (tur2 == 'P') {
-                    kaybedenOldur(this->canliDizisi[i][j]);
-                }
-                else if (tur2 == 'S') {
-                    kaybedenOldur(this->canliDizisi[i][j]);
-                }
-                else if (tur2 == 'B') {
+                    kaybedenOldur(canli1);
+                } else if (tur2 == 'B') {
                     if (!ikiBitki(canli1, canli2)) {
                         this->kazanan = canli1;
                         kaybedenOldur(canli2);
-                    }
-                    else {
+                    } else {
                         this->kazanan = canli2;
                         kaybedenOldur(canli1);
                     }
+                } else {
+                    kaybedenOldur(canli2);
                 }
             } else if (tur1 == 'S') {
                 if (tur2 == 'B') {
-                    temp = this->kazanan;
                     this->kazanan = canli2;
-                    kaybedenOldur(temp);
-                }
-                else if (tur2 == 'C') {
-                    kaybedenOldur(this->canliDizisi[i][j]);
-                }
-                else if (tur2 == 'P') {
-                    kaybedenOldur(this->canliDizisi[i][j]);
-                }
-                else if (tur2 == 'S') {
+                    kaybedenOldur(canli1);
+                } else if (tur2 == 'S') {
                     if (!ikiSinek(canli1, canli2)) {
                         this->kazanan = canli1;
                         kaybedenOldur(canli2);
-                    }
-                    else {
+                    } else {
                         this->kazanan = canli2;
                         kaybedenOldur(canli1);
                     }
+                } else {
+                    kaybedenOldur(canli2);
                 }
             } else if (tur1 == 'P') {
                 if (tur2 == 'P') {
@@ -391,25 +370,9 @@ void savasciGonder(Habitat this) {
                         this->kazanan = canli1;
                         kaybedenOldur(canli2);
                     }
-                    else {
-                        this->kazanan = canli2;
-                        kaybedenOldur(canli1);
-                    }
-                }
-                else if (tur2 == 'B') {
-                    temp = this->kazanan;
+                } else {
                     this->kazanan = canli2;
-                    kaybedenOldur(temp);
-                }
-                else if (tur2 == 'C') {
-                    temp = this->kazanan;
-                    this->kazanan = canli2;
-                    kaybedenOldur(temp);
-                }
-                else if (tur2 == 'S') {
-                    temp = this->kazanan;
-                    this->kazanan = canli2;
-                    kaybedenOldur(temp);
+                    kaybedenOldur(canli1);
                 }
             }
             habitatYazdir(this);
